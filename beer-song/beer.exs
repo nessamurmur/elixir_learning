@@ -1,18 +1,16 @@
 defmodule Beer do
-  def sing(n) do
-    sing(n, 0)
-  end
-
-  def sing(n1, n2) do
-    Enum.reduce(n1..n2, "", fn(num, acc) -> 
-                                acc <> verse(num) <> "\n" end)
+  def sing(n1, n2 // 0) do
+    Enum.reduce(n1..n2, "", &(&2 <> verse(&1) <> "\n"))
   end
 
   def verse(n) do
     { shelf_bottles, take_bottles } = bottle_phrase(n)
     { left_bottles, _ } = bottle_phrase(n - 1)
 
-    "#{String.capitalize(shelf_bottles)} of beer on the wall, #{shelf_bottles} of beer.\n#{take_bottles}, #{left_bottles} of beer on the wall.\n"
+    """
+    #{String.capitalize(shelf_bottles)} of beer on the wall, #{shelf_bottles} of beer.
+    #{take_bottles}, #{left_bottles} of beer on the wall.
+    """
   end
 
   def bottle_phrase(n) do
